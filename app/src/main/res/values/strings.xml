@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">LookUp</string>
+    <string name="phone_call">Call</string>
+    <string name="search">Search</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="calculation">Calculate/Currency</string>
+    <string name="cancel">Cancel</string>
+    <string name="setting">Setting</string>
+    <string name="newCodeCliped">인증코드가 복사되었습니다</string>
+
+
+    <string name="ad_id">ca-app-pub-8081631582008293/8109040296</string>
+    <string name="app_id">ca-app-pub-8081631582008293~7260306135</string>
+    <string name="ad_id_test">ca-app-pub-3940256099942544/6300978111</string>
+</resources>

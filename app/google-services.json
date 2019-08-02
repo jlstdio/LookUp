@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "447090299424",
+    "firebase_url": "https://lookup-6c08a.firebaseio.com",
+    "project_id": "lookup-6c08a",
+    "storage_bucket": "lookup-6c08a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447090299424:android:659389dd3ec97fd7",
+        "android_client_info": {
+          "package_name": "com.leejoonhee.lookup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "447090299424-sna87no70h2m1tnma7v5q3vk2u578p83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCrRiksse92F9VdTDMpPqrcoeL7jsC12o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447090299424-sna87no70h2m1tnma7v5q3vk2u578p83.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

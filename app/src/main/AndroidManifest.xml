@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="com.leejoonhee.lookup">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <dist:module dist:instant="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/app_id"/>
+
+        <activity android:name=".Setting.SettingActivity"></activity>
+        <activity android:name=".Setting.SearchEngine"></activity>
+        <activity android:name=".Setting.DictionarySet"></activity>
+        <activity android:name=".Setting.CurrencySet"></activity>
+        <activity android:name=".Setting.LanguageSet"></activity>
+        <activity android:name=".Setting.Help"></activity>
+        <activity android:name=".Setting.KnockKnock"></activity>
+        
+        <receiver android:name=".BackgroundService.BootItUp"
+            android:enabled="true"
+            android:exported="false"
+            android:label="Starter" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+
+        </receiver>
+
+        <service android:name=".BackgroundService.ClipBoardService"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </service>
+
+        <activity android:name=".Popup"
+            android:theme="@android:style/Theme.Translucent"
+            android:launchMode="singleInstance">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".BackgroundService.SMSMMSReceiver"
+            android:enabled="true">
+            <intent-filter android:priority="1">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
