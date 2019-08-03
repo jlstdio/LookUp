@@ -23,8 +23,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -62,8 +60,7 @@
                     app:scroll_item_text_color="@color/black"
                     app:scroll_indicator="true"
                     app:scroll_item_align="center"
-                    app:scroll_selected_item_text_color="@color/black"
-                    />
+                    app:scroll_selected_item_text_color="@color/black" />
 
             </LinearLayout>
         </ScrollView>

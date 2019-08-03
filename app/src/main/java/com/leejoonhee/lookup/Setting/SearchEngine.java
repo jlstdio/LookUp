@@ -28,7 +28,8 @@ public class SearchEngine extends AppCompatActivity {
         initviews();
         loaddata();
 
-        String name = sharedPreferences.getString("clip", "nothing");
+        sharedPreferences = getSharedPreferences("ClipBoard", MODE_PRIVATE);
+        String name = sharedPreferences.getString("searchengine", "nothing");
         enginename.setText("Engine : " + name);
 
         scrollChoice.addItems(datas, 2);
@@ -50,13 +51,11 @@ public class SearchEngine extends AppCompatActivity {
         datas.add("Yahoo");
         datas.add("Naver");
         datas.add("Daum");
-        datas.add("bing");
+        datas.add("Bing");
     }
 
     private void initviews(){
         scrollChoice = (ScrollChoice)findViewById(R.id.scrollchoice);
         enginename = (TextView)findViewById(R.id.engineselected);
-
-        sharedPreferences = getSharedPreferences("ClipBoard", MODE_PRIVATE);
     }
 }

@@ -42,8 +42,15 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void KnockKnock(View V){
-        Intent intent = new Intent(this, KnockKnock.class);
-        startActivity(intent);
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.setType("plain/text");
+        // email setting 배열로 해놔서 복수 발송 가능
+        String[] address = {"neo81389@gmail.com"};
+        email.putExtra(Intent.EXTRA_EMAIL, address);
+        email.putExtra(Intent.EXTRA_SUBJECT,"LookUp 개선사항 문의");
+        email.putExtra(Intent.EXTRA_TEXT,"이매일 제목에 LoockUp이란 단어는 지우지 말아주세요 스팸으로 분류될 수 있습니다\n개발자에게 보내고 싶은 개선사항이나 조언을 적어주세요!\n");
+        startActivity(email);
+
     }
 
 }

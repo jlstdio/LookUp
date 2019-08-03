@@ -1,15 +1,18 @@
 package com.leejoonhee.lookup.BackgroundService;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 import com.leejoonhee.lookup.Popup;
 
@@ -34,6 +37,14 @@ public class ClipBoardService extends Service implements ClipboardManager.OnPrim
     public void onCreate() {
         Log.i("ClipBoard", "ServiceStarted");
         super.onCreate();
+
+        if(Build.VERSION.SDK_INT >= 26){
+            Notification notification = new NotificationCompat.Builder(this, "7")
+                    .setContentTitle("rebooting")
+                    .setContentText("SYS_Rebooting")
+                    .build();
+            startForeground(7, notification);
+        }
 
         sharedPreferences = getSharedPreferences("ClipBoard",MODE_PRIVATE);
 

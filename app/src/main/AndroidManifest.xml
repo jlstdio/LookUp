@@ -26,7 +26,6 @@
         <activity android:name=".Setting.CurrencySet"></activity>
         <activity android:name=".Setting.LanguageSet"></activity>
         <activity android:name=".Setting.Help"></activity>
-        <activity android:name=".Setting.KnockKnock"></activity>
         
         <receiver android:name=".BackgroundService.BootItUp"
             android:enabled="true"
@@ -41,9 +40,6 @@
 
         <service android:name=".BackgroundService.ClipBoardService"
             android:stopWithTask="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
         </service>
 
         <activity android:name=".Popup"

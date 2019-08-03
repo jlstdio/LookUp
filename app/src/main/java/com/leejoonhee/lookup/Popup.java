@@ -34,6 +34,11 @@ public class Popup extends Activity {
     String clipcontent = "";
     SharedPreferences sharedPreferences;
 
+    String searchengine = "";
+    String dictionary = "";
+    String currency = "";
+    String language = "";
+
     LinearLayout Call;
     LinearLayout Search;
     LinearLayout Dictionary;
@@ -46,20 +51,24 @@ public class Popup extends Activity {
         WindowSet();
         super.onCreate(savedInstanceState);
 
+        adviewinit();
+
         View view = getWindow().getDecorView();
         if (Build.VERSION.SDK_INT >= 21) {
             view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setStatusBarColor(Color.WHITE);
         }
 
-        PermisstionCheck();
+        PermissionCheck();
 
         startService(new Intent(Popup.this, ClipBoardService.class)); // ClipBoard Service boot up
 
-        adviewinit();
-
         sharedPreferences = getSharedPreferences("ClipBoard", MODE_PRIVATE);
         clipcontent = sharedPreferences.getString("clip", "nothing");
+        searchengine = sharedPreferences.getString("searchengine", "Google");
+        dictionary = sharedPreferences.getString("dictionary", "Google Translator");
+        currency = sharedPreferences.getString("currency", "KRW");
+        language = sharedPreferences.getString("language", "English");
 
         Call = (LinearLayout)findViewById(R.id.call);
         Search = (LinearLayout)findViewById(R.id.search);
@@ -90,15 +99,133 @@ public class Popup extends Activity {
         }
 
         else{
-            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.co.kr/search?complete=1&hl=ko&q=" + clipcontent));
-            startActivity(intent);
+
+            if(language.matches("Korean")){
+
+                if(searchengine.matches("Google")){
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.co.kr/search?complete=1&hl=ko&q=" + clipcontent));
+                    startActivity(intent);
+                }
+
+                if(searchengine.matches("DuckDuckGo")){
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://duckduckgo.com/?q=" + clipcontent));
+                    startActivity(intent);
+                }
+
+                if(searchengine.matches("Yahoo")){
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://search.yahoo.com/search?p=" + clipcontent));
+                    startActivity(intent);
+                }
+
+                if(searchengine.matches("Naver")){
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=" + clipcontent));
+                    startActivity(intent);
+                }
+
+                if(searchengine.matches("Daum")){
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://search.daum.net/search?w=tot&DA=YZR&t__nil_searchbox=btn&sug=&sugo=&q=" + clipcontent));
+                    startActivity(intent);
+                }
+
+                if(searchengine.matches("Bing")){
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bing.com/search?q=" + clipcontent));
+                    startActivity(intent);
+                }
+            }
+
+            if(language.matches("English")){
+
+                if(searchengine.matches("Google")){
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.co.kr/search?complete=1&hl=ko&q=" + clipcontent));
+                    startActivity(intent);
+                }
+
+                if(searchengine.matches("DuckDuckGo")){
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://duckduckgo.com/?q=" + clipcontent));
+                    startActivity(intent);
+                }
+
+                if(searchengine.matches("Yahoo")){
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://search.yahoo.com/search?p=" + clipcontent));
+                    startActivity(intent);
+                }
+
+                if(searchengine.matches("Naver")){
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=" + clipcontent));
+                    startActivity(intent);
+                }
+
+                if(searchengine.matches("Daum")){
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://search.daum.net/search?w=tot&DA=YZR&t__nil_searchbox=btn&sug=&sugo=&q=" + clipcontent));
+                    startActivity(intent);
+                }
+
+                if(searchengine.matches("Bing")){
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bing.com/search?q=" + clipcontent));
+                    startActivity(intent);
+                }
+            }
         }
     }
 
     public void dictionary(View V){
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://translate.google.com/#view=home&op=translate&sl=auto&tl=ko&text=" + clipcontent));
-        //intent.setPackage("com.android.chrome");   // 브라우저가 여러개 인 경우 콕 찍어서 크롬을 지정할 경우
-        startActivity(intent);
+
+        Intent intent;
+
+        if(language.matches("Korean")){
+            if(dictionary.matches("Google Translator")){
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://translate.google.com/#view=home&op=translate&sl=auto&tl=ko&text=" + clipcontent));
+                startActivity(intent);
+            }
+
+            if(dictionary.matches("Naver Papago")){
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://papago.naver.com/?sk=auto&tk=ko&st=" + clipcontent));
+                startActivity(intent);
+            }
+
+            if(dictionary.matches("Macmillan Dictionary")){
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.macmillandictionary.com/spellcheck/british/?q=" + clipcontent));
+                startActivity(intent);
+            }
+
+            if(dictionary.matches("Urban Dictionary")){
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.urbandictionary.com/define.php?term=" + clipcontent));
+                startActivity(intent);
+            }
+
+            if(dictionary.matches("The Online Slang Dictionary")){
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://onlineslangdictionary.com/search/?q=" + clipcontent));
+                startActivity(intent);
+            }
+        }
+
+        if(language.matches("English")){
+
+            if(dictionary.matches("Google Translator")){
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://translate.google.com/#view=home&op=translate&sl=auto&tl=en&text=" + clipcontent));
+                startActivity(intent);
+            }
+
+            if(dictionary.matches("Naver Papago")){
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://papago.naver.com/?sk=auto&tk=en&st=" + clipcontent));
+                startActivity(intent);
+            }
+
+            if(dictionary.matches("Macmilan Dictionary")){
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.macmillandictionary.com/spellcheck/british/?q=" + clipcontent));
+                startActivity(intent);
+            }
+
+            if(dictionary.matches("Urban Dictionary")){
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.urbandictionary.com/define.php?term=" + clipcontent));
+                startActivity(intent);
+            }
+
+            if(dictionary.matches("The Online Slang Dictionary")){
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://onlineslangdictionary.com/search/?q=" + clipcontent));
+                startActivity(intent);
+            }
+        }
     }
 
     public void calculation(View V){
@@ -147,7 +274,7 @@ public class Popup extends Activity {
         startActivity(intent);
     }
 
-    public void PermisstionCheck(){
+    public void PermissionCheck(){
         //Receive_SMS permission check and get a confirmation from user
         int permssionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
         if (permssionCheck != PackageManager.PERMISSION_GRANTED) {
@@ -241,8 +368,9 @@ public class Popup extends Activity {
 
         //TODO Change this when on publish
         //TODO ad size to 468 * 60
-        AdRequest adRequest1 = new AdRequest.Builder().addTestDevice("my_test_device_id").build();
-        mAdView.loadAd(adRequest1);
+        //AdRequest adRequest = new AdRequest.Builder().addTestDevice("my_test_device_id").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     public void popupcondition(){

@@ -1,5 +1,6 @@
 package com.leejoonhee.lookup.Setting;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -18,6 +19,8 @@ public class CurrencySet extends AppCompatActivity {
     ScrollChoice scrollChoice_to;
     TextView currencyset;
 
+    SharedPreferences sharedPreferences;
+
     String namefrom;
     String nameto;
 
@@ -29,12 +32,20 @@ public class CurrencySet extends AppCompatActivity {
         initviews();
         loaddata();
 
+        sharedPreferences = getSharedPreferences("ClipBoard", MODE_PRIVATE);
+        String name = sharedPreferences.getString("currency", "nothing");
+        currencyset.setText(namefrom + " -> " + nameto);
+
         scrollChoice_from.addItems(data, 2);
         scrollChoice_from.setOnItemSelectedListener(new ScrollChoice.OnItemSelectedListener() {
             @Override
             public void onItemSelected(ScrollChoice scrollChoice_from, int position, String name) {
                 namefrom = name;
                 currencyset.setText(namefrom + " -> " + nameto);
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("currency", name); // key, value를 이용하여 저장하는 형태
+                editor.commit();
             }
         });
 

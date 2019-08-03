@@ -1,5 +1,6 @@
 package com.leejoonhee.lookup.Setting;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -17,6 +18,8 @@ public class DictionarySet extends AppCompatActivity {
     ScrollChoice scrollChoice;
     TextView dictionaryname;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,11 +28,19 @@ public class DictionarySet extends AppCompatActivity {
         initviews();
         loaddata();
 
+        sharedPreferences = getSharedPreferences("ClipBoard", MODE_PRIVATE);
+        String name = sharedPreferences.getString("dictionary", "nothing");
+        dictionaryname.setText("Selected : " + name);
+
         scrollChoice.addItems(datas, 2);
         scrollChoice.setOnItemSelectedListener(new ScrollChoice.OnItemSelectedListener() {
             @Override
             public void onItemSelected(ScrollChoice scrollChoice, int position, String name) {
                 dictionaryname.setText("Selected : " + name);
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("dictionary", name); // key, value를 이용하여 저장하는 형태
+                editor.commit();
             }
         });
     }
@@ -37,10 +48,7 @@ public class DictionarySet extends AppCompatActivity {
     private void loaddata(){
         datas.add("Google Translator");
         datas.add("Naver Papago");
-        datas.add("Oxford Dictionary");
-        datas.add("Macmilan Dictionary");
-        datas.add("Longman");
-        datas.add("Collins Cobuild");
+        datas.add("Macmillan Dictionary");
         datas.add("Urban Dictionary");
         datas.add("The Online Slang Dictionary");
     }
