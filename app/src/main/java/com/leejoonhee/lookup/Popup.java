@@ -53,12 +53,6 @@ public class Popup extends Activity {
 
         adviewinit();
 
-        View view = getWindow().getDecorView();
-        if (Build.VERSION.SDK_INT >= 21) {
-            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            getWindow().setStatusBarColor(Color.WHITE);
-        }
-
         PermissionCheck();
 
         startService(new Intent(Popup.this, ClipBoardService.class)); // ClipBoard Service boot up
@@ -274,47 +268,12 @@ public class Popup extends Activity {
         startActivity(intent);
     }
 
-    public void PermissionCheck(){
-        //Receive_SMS permission check and get a confirmation from user
-        int permssionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
-        if (permssionCheck != PackageManager.PERMISSION_GRANTED) {
-
-            Toast.makeText(this, "권한 승인이 필요합니다", Toast.LENGTH_LONG).show();
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.RECEIVE_SMS)) {
-                Toast.makeText(this, "문자정보 처리를 위해 RECEIVE_SMS권한이 필요합니다.", Toast.LENGTH_LONG).show();
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.RECEIVE_SMS},
-                        MY_PERMISSIONS_REQUEST_ReceiveSMS);
-                Toast.makeText(this, "문자정보 처리를 위해 RECEIVE_SMS권한이 필요합니다.", Toast.LENGTH_LONG).show();
-
-            }
-        }
-
-        permssionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_BOOT_COMPLETED);
-        if (permssionCheck != PackageManager.PERMISSION_GRANTED) {
-
-            Toast.makeText(this, "권한 승인이 필요합니다", Toast.LENGTH_LONG).show();
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.RECEIVE_BOOT_COMPLETED)) {
-                Toast.makeText(this, "부팅시 자동실행을 위해 권한이 필요합니다", Toast.LENGTH_LONG).show();
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.RECEIVE_SMS},
-                        MY_PERMISSIONS_REQUEST_BOOT);
-                Toast.makeText(this, "부팅시 자동실행을 위해 권한이 필요합니다", Toast.LENGTH_LONG).show();
-
-            }
-        }
-    }
+    public void PermissionCheck(){ }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_ReceiveSMS: {
+           /* case MY_PERMISSIONS_REQUEST_ReceiveSMS: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -338,7 +297,7 @@ public class Popup extends Activity {
                     Toast.makeText(this, "아직 승인받지 않았습니다.", Toast.LENGTH_LONG).show();
                 }
                 return;
-            }
+            }*/
         }
     }
 

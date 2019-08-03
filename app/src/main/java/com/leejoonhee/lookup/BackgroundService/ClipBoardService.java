@@ -16,16 +16,10 @@ import androidx.core.app.NotificationCompat;
 
 import com.leejoonhee.lookup.Popup;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class ClipBoardService extends Service implements ClipboardManager.OnPrimaryClipChangedListener {
 
     ClipboardManager mManager;
     SharedPreferences sharedPreferences;
-
-    Timer timer = new Timer();
-    String buffcode = "";
 
     @Nullable
     @Override
@@ -50,34 +44,6 @@ public class ClipBoardService extends Service implements ClipboardManager.OnPrim
 
         mManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         mManager.addPrimaryClipChangedListener(this);
-
-        TimerTask TT = new TimerTask() {
-            @Override
-            public void run() {
-
-                if(buffcode.matches(SMSMMSReceiver.code)){}
-
-                else{
-                    save();
-                }
-            }
-        };
-        timer.schedule(TT, 0, 500); //Timer 실행
-    }
-
-    public void save(){
-
-        buffcode = SMSMMSReceiver.code;
-
-        ClipData clip = ClipData.newPlainText("text", buffcode);
-
-        ClipboardManager save;
-
-        save = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-        save.setPrimaryClip(clip);
-
-       // Toast.makeText(getApplicationContext(), "New Code Copied", Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
