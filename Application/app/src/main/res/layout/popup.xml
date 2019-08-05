@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:background="@color/transparent">
+
+    <LinearLayout
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right">
+
+            <LinearLayout
+                android:layout_marginBottom="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <com.google.android.gms.ads.AdView
+                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="@string/ad_id">
+                </com.google.android.gms.ads.AdView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/call"
+                android:layout_marginBottom="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/phone_call"
+                    android:layout_margin="10dp"/>
+
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:onClick="call"
+                    android:background="@drawable/call"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/search"
+                android:layout_marginBottom="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/search"
+                    android:layout_margin="10dp"/>
+
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:onClick="search"
+                    android:background="@drawable/search"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dictionary"
+                android:layout_marginBottom="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dictionary"
+                    android:layout_margin="10dp"/>
+
+                <Button
+                    android:background="@drawable/dictionary"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:onClick="dictionary"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/calculation"
+                android:layout_marginBottom="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/calculation"
+                    android:layout_margin="10dp"/>
+
+                <Button
+                    android:background="@drawable/calculator"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:onClick="calculation"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/setting"
+                android:layout_marginBottom="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting"
+                    android:layout_margin="10dp"/>
+
+                <Button
+                    android:background="@drawable/setting"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:onClick="setting"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
