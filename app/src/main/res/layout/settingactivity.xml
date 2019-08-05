@@ -246,9 +246,7 @@
                         android:text="Copyright © 2018 Lee Joon Hee(neo81389@gmail.com). Released under the GNU General Public License v3."
                         android:textColor="@color/black" />
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

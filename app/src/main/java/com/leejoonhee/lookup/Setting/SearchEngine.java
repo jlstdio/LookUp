@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.ads.AdView;
 import com.leejoonhee.lookup.R;
 import com.webianks.library.scroll_choice.ScrollChoice;
 
@@ -17,6 +18,7 @@ public class SearchEngine extends AppCompatActivity {
     List<String> datas = new ArrayList<>();
     ScrollChoice scrollChoice;
     TextView enginename;
+    private AdView mAdView;
 
     SharedPreferences sharedPreferences;
 

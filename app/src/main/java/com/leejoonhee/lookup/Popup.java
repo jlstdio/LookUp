@@ -1,35 +1,29 @@
 package com.leejoonhee.lookup;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.leejoonhee.lookup.BackgroundService.ClipBoardService;
+import com.leejoonhee.lookup.Setting.Help;
 import com.leejoonhee.lookup.Setting.SettingActivity;
 
 public class Popup extends Activity {
-
-    private final int MY_PERMISSIONS_REQUEST_ReceiveSMS = 1001;
-    private final int MY_PERMISSIONS_REQUEST_BOOT = 1000;
 
     String clipcontent = "";
     SharedPreferences sharedPreferences;
@@ -43,8 +37,12 @@ public class Popup extends Activity {
     LinearLayout Search;
     LinearLayout Dictionary;
     LinearLayout Calculation;
+    LinearLayout Setting;
 
-    private AdView mAdView;
+    Animation slidein;
+    Animation slideout;
+
+    int count;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,26 +62,72 @@ public class Popup extends Activity {
         currency = sharedPreferences.getString("currency", "KRW");
         language = sharedPreferences.getString("language", "English");
 
+        count = sharedPreferences.getInt("first", 0);
+
         Call = (LinearLayout)findViewById(R.id.call);
         Search = (LinearLayout)findViewById(R.id.search);
         Dictionary = (LinearLayout)findViewById(R.id.dictionary);
         Calculation = (LinearLayout)findViewById(R.id.calculation);
+        Setting = (LinearLayout)findViewById(R.id.setting);
 
         Call.setVisibility(View.GONE);
         Search.setVisibility(View.GONE);
         Dictionary.setVisibility(View.GONE);
         Calculation.setVisibility(View.GONE);
 
+        slidein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidein);   // 에니메이션 설정 파일
+        Setting.startAnimation(slidein);
+
+        slideout = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideout);
+
+        PermissionCheck();
+
         popupcondition();
+
+        if(count == 0){
+            Intent intent = new Intent(this, Help.class);
+            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+            count++;
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("first", 1);
+            editor.commit();
+        }
+        else{
+
+        }
     }
 
     public void call(View V) {
+
+        Setting.startAnimation(slideout);
+        Call.startAnimation(slideout);
+        Dictionary.startAnimation(slideout);
+        Search.startAnimation(slideout);
+
+        Call.setVisibility(View.GONE);
+        Search.setVisibility(View.GONE);
+        Dictionary.setVisibility(View.GONE);
+        Calculation.setVisibility(View.GONE);
+        Setting.setVisibility(View.GONE);
+
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + clipcontent));
         startActivity(intent);
     }
 
     public void search(View V){
+
+        Setting.startAnimation(slideout);
+        Call.startAnimation(slideout);
+        Dictionary.startAnimation(slideout);
+        Search.startAnimation(slideout);
+
+        Call.setVisibility(View.GONE);
+        Search.setVisibility(View.GONE);
+        Dictionary.setVisibility(View.GONE);
+        Calculation.setVisibility(View.GONE);
+        Setting.setVisibility(View.GONE);
 
         Intent intent;
 
@@ -166,6 +210,17 @@ public class Popup extends Activity {
 
         Intent intent;
 
+        Setting.startAnimation(slideout);
+        Call.startAnimation(slideout);
+        Dictionary.startAnimation(slideout);
+        Search.startAnimation(slideout);
+
+        Call.setVisibility(View.GONE);
+        Search.setVisibility(View.GONE);
+        Dictionary.setVisibility(View.GONE);
+        Calculation.setVisibility(View.GONE);
+        Setting.setVisibility(View.GONE);
+
         if(language.matches("Korean")){
             if(dictionary.matches("Google Translator")){
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://translate.google.com/#view=home&op=translate&sl=auto&tl=ko&text=" + clipcontent));
@@ -224,6 +279,17 @@ public class Popup extends Activity {
 
     public void calculation(View V){
 
+        Setting.startAnimation(slideout);
+        Call.startAnimation(slideout);
+        Dictionary.startAnimation(slideout);
+        Search.startAnimation(slideout);
+
+        Call.setVisibility(View.GONE);
+        Search.setVisibility(View.GONE);
+        Dictionary.setVisibility(View.GONE);
+        Calculation.setVisibility(View.GONE);
+        Setting.setVisibility(View.GONE);
+
         String[] arr = clipcontent.split("(?<!^)");
         String[] numbers = clipcontent.split("|-|\\+|/");
 
@@ -264,42 +330,23 @@ public class Popup extends Activity {
     }
 
     public void setting(View V){
+
+        Setting.startAnimation(slideout);
+        Call.startAnimation(slideout);
+        Dictionary.startAnimation(slideout);
+        Search.startAnimation(slideout);
+
+        Call.setVisibility(View.GONE);
+        Search.setVisibility(View.GONE);
+        Dictionary.setVisibility(View.GONE);
+        Calculation.setVisibility(View.GONE);
+        Setting.setVisibility(View.GONE);
+
         Intent intent = new Intent(this, SettingActivity.class);
         startActivity(intent);
     }
 
     public void PermissionCheck(){ }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-           /* case MY_PERMISSIONS_REQUEST_ReceiveSMS: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    Toast.makeText(this, "승인이 허가되어 있습니다.", Toast.LENGTH_LONG).show();
-
-                } else {
-                    Toast.makeText(this, "아직 승인받지 않았습니다.", Toast.LENGTH_LONG).show();
-                }
-                return;
-            }
-
-            case MY_PERMISSIONS_REQUEST_BOOT: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    Toast.makeText(this, "승인이 허가되어 있습니다.", Toast.LENGTH_LONG).show();
-
-                } else {
-                    Toast.makeText(this, "아직 승인받지 않았습니다.", Toast.LENGTH_LONG).show();
-                }
-                return;
-            }*/
-        }
-    }
 
     public void WindowSet(){
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -322,13 +369,13 @@ public class Popup extends Activity {
     }
 
     public void adviewinit(){
-        MobileAds.initialize(this, getString(R.string.app_id));
-        mAdView = findViewById(R.id.adView);
-
-        //TODO Change this when on publish
-        //TODO ad size to 468 * 60
-        //AdRequest adRequest = new AdRequest.Builder().addTestDevice("my_test_device_id").build();
-        AdRequest adRequest = new AdRequest.Builder().build();
+        MobileAds.initialize(this, getString(R.string.ad_id));
+        AdView mAdView = findViewById(R.id.adView);
+        Bundle extras = new Bundle();
+        extras.putString("max_ad_content_rating", "G"); // 앱이 3세 이상 사용가능이라면 광고레벨을 설정해줘야 한다
+        AdRequest adRequest = new AdRequest.Builder()
+                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
+                .build();
         mAdView.loadAd(adRequest);
     }
 
@@ -339,6 +386,7 @@ public class Popup extends Activity {
                 || clipcontent.contains(".za") || clipcontent.contains(".ajax") || clipcontent.contains(".html")) {
             //url검색
             Search.setVisibility(View.VISIBLE);
+            Search.startAnimation(slidein);
         }
 
         if (clipcontent.startsWith("010")) {
@@ -346,6 +394,9 @@ public class Popup extends Activity {
             if(clipcontent.length() == 11){
                 Call.setVisibility(View.VISIBLE);
                 Search.setVisibility(View.VISIBLE);
+
+                Search.startAnimation(slidein);
+                Call.startAnimation(slidein);
             }
 
             if(8 < clipcontent.length() && clipcontent.length() < 14 && clipcontent.length() != 11){
@@ -358,6 +409,9 @@ public class Popup extends Activity {
             if(clipcontent.length() == 9){
                 Call.setVisibility(View.VISIBLE);
                 Search.setVisibility(View.VISIBLE);
+
+                Search.startAnimation(slidein);
+                Call.startAnimation(slidein);
             }
 
             if(6 < clipcontent.length() && clipcontent.length() < 12 && clipcontent.length() != 9){
@@ -374,6 +428,9 @@ public class Popup extends Activity {
             if(clipcontent.length() == 10){
                 Call.setVisibility(View.VISIBLE);
                 Search.setVisibility(View.VISIBLE);
+
+                Search.startAnimation(slidein);
+                Call.startAnimation(slidein);
             }
 
             if(7 < clipcontent.length() && clipcontent.length() < 13 && clipcontent.length() != 10){
@@ -386,12 +443,17 @@ public class Popup extends Activity {
             //사칙연산 그리고 퍼센트
 
             Search.setVisibility(View.VISIBLE);
+
+            Search.startAnimation(slidein);
             //Calculation.setVisibility(View.VISIBLE);
         }
 
         else{
             Search.setVisibility(View.VISIBLE);
             Dictionary.setVisibility(View.VISIBLE);
+
+            Search.startAnimation(slidein);
+            Dictionary.startAnimation(slidein);
         }
     }
 

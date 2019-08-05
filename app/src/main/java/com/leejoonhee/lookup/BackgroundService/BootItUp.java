@@ -1,11 +1,11 @@
 package com.leejoonhee.lookup.BackgroundService;
 
 import android.content.BroadcastReceiver;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.util.Log;
+
+import com.leejoonhee.lookup.Popup;
 
 public class BootItUp extends BroadcastReceiver {
     @Override
@@ -14,17 +14,8 @@ public class BootItUp extends BroadcastReceiver {
         String action = intent.getAction();
         if(action.equals("android.intent.action.BOOT_COMPLETED")) {
 
-            Intent clipboardintent = new Intent(context, ClipboardManager.class);
-            Intent SMSreceiverintent = new Intent(context, ClipboardManager.class);
-
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                context.startForegroundService(clipboardintent);
-                context.startForegroundService(SMSreceiverintent);
-            }
-            else {
-                context.startService(clipboardintent);
-                context.startService(SMSreceiverintent);
-            }
+            intent = new Intent(context, Popup.class);
+            context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 
             Log.w("jumper", "bootedup");
         }

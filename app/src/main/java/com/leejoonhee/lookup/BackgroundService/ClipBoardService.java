@@ -1,19 +1,14 @@
 package com.leejoonhee.lookup.BackgroundService;
 
-import android.app.Notification;
 import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
-
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-
 import com.leejoonhee.lookup.Popup;
 
 public class ClipBoardService extends Service implements ClipboardManager.OnPrimaryClipChangedListener {
@@ -32,18 +27,12 @@ public class ClipBoardService extends Service implements ClipboardManager.OnPrim
         Log.i("ClipBoard", "ServiceStarted");
         super.onCreate();
 
-        if(Build.VERSION.SDK_INT >= 26){
-            Notification notification = new NotificationCompat.Builder(this, "7")
-                    .setContentTitle("rebooting")
-                    .setContentText("SYS_Rebooting")
-                    .build();
-            startForeground(7, notification);
-        }
-
         sharedPreferences = getSharedPreferences("ClipBoard",MODE_PRIVATE);
 
         mManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         mManager.addPrimaryClipChangedListener(this);
+
+
     }
 
     @Override
@@ -74,6 +63,7 @@ public class ClipBoardService extends Service implements ClipboardManager.OnPrim
                         content.endsWith("었어") || content.endsWith("있지") || content.endsWith("었어")){ }
 
                 else lookup(String.valueOf(data.getItemAt(i).coerceToText(this)));
+
             }
         }
         else {
@@ -85,8 +75,7 @@ public class ClipBoardService extends Service implements ClipboardManager.OnPrim
     public void lookup(String clipboard){
         Log.i("ClipBoardService", clipboard);
 
-        Intent intent = new Intent(getApplicationContext(), Popup.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        Intent intent = new Intent(this, Popup.class);
+        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 }
