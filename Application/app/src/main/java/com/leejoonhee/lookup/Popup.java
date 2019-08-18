@@ -90,7 +90,7 @@ public class Popup extends Activity {
 
             count++;
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("firs t", 1);
+            editor.putInt("first", 1);
             editor.commit();
         }
         else{
